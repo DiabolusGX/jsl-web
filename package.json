@@ -1,7 +1,7 @@
 {
   "name": "my-secret-server",
   "version": "1.0.0",
-  "description": "",
+  "description": "My secret express server",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,6 +13,7 @@
     "dotenv": "^8.2.0",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
+    "md5": "^2.3.0",
     "mongoose": "^5.11.8",
     "nodemon": "^2.0.6"
   }
