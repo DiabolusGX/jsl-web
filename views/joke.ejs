@@ -1,0 +1,50 @@
+<%- include('partials/header') %>
+
+<div class="jumbotron">
+  <div class="container">
+    <h1 class="spacing display-3">Select Category & Flags</h1>
+
+    <form id="categoryForm" action="/joke" method="post">
+      <div class="row">
+        <div class="col-lg-6">
+          <p>Select the Joke Category from the available options :</p>
+        </div>
+        <div class="col-lg-6">
+          <p>Select the blacklisted flags :</p>
+        </div>
+
+        <div class="col-lg-6">
+          <input type="radio" name="jokeType" value="Programming" checked />
+          Programming <br />
+          <input type="radio" name="jokeType" value="Miscellaneous" />
+          Miscellaneous <br />
+          <input type="radio" name="jokeType" value="Dark" /> Dark <br />
+          <input type="radio" name="jokeType" value="Spooky" /> Spooky <br />
+          <input type="radio" name="jokeType" value="Pun" /> Pun <br />
+          <input type="radio" name="jokeType" value="Christmas" /> Christmas
+          <br />
+        </div>
+
+        <div class="col-lg-6">
+          <input type="checkbox" name="flag" value="nsfw" /> NSFW <br />
+          <input type="checkbox" name="flag" value="religious" /> Religious
+          <br />
+          <input type="checkbox" name="flag" value="political" /> Political
+          <br />
+          <input type="checkbox" name="flag" value="racist" /> Racist <br />
+          <input type="checkbox" name="flag" value="sexist" /> Sexist <br />
+        </div>
+      </div>
+
+      <button class="spacing btn btn-lg btn-outline-primary" type="submit">
+        Get Joke
+      </button>
+    </form>
+
+    <h3 class="spacing display-5">
+        <div class="vertical"> <%- joke %> </div>
+    </h3>
+  </div>
+</div>
+
+<%- include('partials/footer') %>

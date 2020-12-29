@@ -4,8 +4,8 @@ body {
 }
 
 .centered {
-    padding-top: 200px;
-    text-align: center;
+  padding-top: 200px;
+  text-align: center;
 }
 
 .secret-text {
@@ -13,4 +13,22 @@ body {
   font-size: 2rem;
   color: #fff;
   background-color: #000;
+}
+
+.dot-hr{
+  border: dotted #000000 6px;
+  border-bottom: none;
+  width: 5%;
+  margin: 50px auto;
+}
+
+/* class for add up-down margin */
+.spacing{
+  margin: 20px;
+}
+.vertical {
+  border-left: 6px solid #A9A9A9;
+  left: 50%;
+  padding: 10px;
+  border-radius: 3px;
 }

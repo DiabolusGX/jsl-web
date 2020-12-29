@@ -8,6 +8,7 @@ const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
+const https = require("https");
 
 const app = express();
 app.set("view engine", "ejs");
@@ -49,7 +50,7 @@ passport.use(new GoogleStrategy({
         clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         callbackURL: "http://localhost:3000/auth/google/secrets"
     },
-    (accessToken, refreshToken, profile, cb) => {
+    (_accessToken, _refreshToken, profile, cb) => {
         let picture = "";
         if(profile.photos[0]) picture = profile.photos[0].value;
         User.findOrCreate({
@@ -82,6 +83,27 @@ app.get("/secrets", (req, res) => {
 app.get("/logout", (req, res) => {
     req.logout();
     res.redirect("/");
+});
+
+// Get and post jokes
+app.get("/joke", (req, res) =>{
+    res.render("joke.ejs", { joke: "" });
+});
+app.post("/joke", (req, res) => {
+    let joke = "", bans = "";
+    if(req.body.flag){
+        if(typeof(req.body.flag) === "string") bans = req.body.flag;
+        else if(typeof(req.body.flag) === "object") bans = req.body.flag.join(",");
+    }
+    const url = "https://sv443.net/jokeapi/v2/joke/"+ req.body.jokeType + "?blacklistFlags=" + bans;
+    https.get(url, (response) => {
+        response.on("data", (data) => {
+            const jokeData = JSON.parse(data);
+            if(jokeData.type === "twopart") joke += jokeData.setup + "<br>" + jokeData.delivery;
+            else if(jokeData.type === "single") joke = jokeData.joke;
+            res.render("joke.ejs", { joke: joke });
+        });
+    });
 });
 
 app.post("/register", (req, res) => {
