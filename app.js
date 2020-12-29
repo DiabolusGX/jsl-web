@@ -33,7 +33,8 @@ const userSchema = new mongoose.Schema({
     steamId: { type: String },
     googleId: { type: String },
     discordId: { type: String },
-    discordGuilds: { type: Array }
+    discordGuilds: { type: Array },
+    discordConnections: { type: Array }
 });
 userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);
@@ -71,9 +72,10 @@ passport.use(new DiscordStrategy({
     clientID: process.env.DISCORD_CLIENT_ID,
     clientSecret: process.env.DISCORD_CLIENT_SECRET,
     callbackURL: "http://localhost:3000/auth/discord/secrets",
-    scope: ["identify", "email", "guilds", "guilds.join"]
+    scope: ["identify", "email", "guilds", "connections"]
 },
 (_accessToken, _refreshToken, profile, cb) => {
+    console.log(profile);
     let picture = "https://cdn.discordapp.com/avatars/" + profile.id + "/", email = "";
     if (profile.avatar) picture += profile.avatar + ".png";
     if (profile.email) email = profile.email;
@@ -82,7 +84,8 @@ passport.use(new DiscordStrategy({
         email: email,
         picture: picture,
         displayName: profile.username,
-        discordGuilds: profile.guilds
+        discordGuilds: profile.guilds,
+        discordConnections: profile.connections
     }, (err, user) => {
         return cb(err, user);
     });
@@ -151,7 +154,7 @@ app.post("/joke", (req, res) => {
             const jokeData = JSON.parse(data);
             if (jokeData.type === "twopart") joke += jokeData.setup + "<br>" + jokeData.delivery;
             else if (jokeData.type === "single") joke = jokeData.joke;
-            res.render("joke.ejs", { joke: joke });
+            res.render("joke.ejs", { joke: `<div class="vertical"> ${joke} </div>` });
         });
     });
 });
