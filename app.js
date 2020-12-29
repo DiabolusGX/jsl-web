@@ -7,6 +7,7 @@ const session = require("express-session");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const DiscordStrategy = require('passport-discord').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
 const https = require("https");
 
@@ -24,11 +25,14 @@ app.use(passport.session());
 
 const userSchema = new mongoose.Schema({
     username: { type: String },
+    displayName : { type: String },
     email: { type: String },
     picture: { type: String },
     password: { type: String },
+    steamId: { type: String },
     googleId: { type: String },
-    steamId: { type: String }
+    discordId: { type: String },
+    discordGuilds: { type: Array }
 });
 userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);
@@ -36,11 +40,11 @@ const User = new mongoose.model("User", userSchema);
 
 passport.use(User.createStrategy());
 
-passport.serializeUser(function (user, done) {
+passport.serializeUser((user, done) => {
     done(null, user.id);
 });
-passport.deserializeUser(function (id, done) {
-    User.findById(id, function (err, user) {
+passport.deserializeUser((id, done) => {
+    User.findById(id, (err, user) => {
         done(err, user);
     });
 });
@@ -56,18 +60,43 @@ passport.use(new GoogleStrategy({
         User.findOrCreate({
             googleId: profile.id,
             email: profile.emails[0].value,
-            picture: picture
+            picture: picture,
+            displayName: profile.displayName || profile.name.givenName
         }, (err, user) => {
             return cb(err, user);
         });
     }
 ));
+passport.use(new DiscordStrategy({
+    clientID: "699505785847283785",
+    clientSecret: "46Wrt5PZQkjJdJcC2KId54KEQgMN0I0f",
+    callbackURL: "http://localhost:3000/auth/discord/secrets",
+    scope: ["identify", "email", "guilds", "guilds.join"]
+},
+(_accessToken, _refreshToken, profile, cb) => {
+    let picture = "https://cdn.discordapp.com/avatars/" + profile.id + "/", email = "";
+    if(profile.avatar) picture += profile.avatar + ".png";
+    if(profile.email) email = profile.email;
+    User.findOrCreate({
+        discordId: profile.id,
+        email: email,
+        picture: picture,
+        displayName: profile.username,
+        discordGuilds: profile.guilds
+    }, (err, user) => {
+        return cb(err, user);
+    });
+}));
 
 app.get("/", (req, res) => {
     res.render("home");
 });
 app.get("/auth/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 app.get("/auth/google/secrets", passport.authenticate("google", { failureRedirect: "/login" }), (req, res) => {
+    res.redirect("/secrets");
+});
+app.get("/auth/discord", passport.authenticate("discord", { permissions: 66321471 }));
+app.get("/auth/discord/secrets", passport.authenticate("discord", { failureRedirect: "/login"}), (req, res) => {
     res.redirect("/secrets");
 });
 app.get("/login", (req, res) => {
@@ -125,7 +154,6 @@ app.post("/login", (req, res) => {
         email: req.body.email,
         password: req.body.password
     });
-
     req.login(newUser, (err) => {
         if (err) console.log(err);
         else passport.authenticate("local")(req, res, () => {
