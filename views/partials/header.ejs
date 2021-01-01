@@ -4,10 +4,47 @@
 <head>
   <meta charset="utf-8">
   <title>Secrets</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500&family=McLaren&family=Montserrat:wght@500&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome CSS -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <!-- Social Button Icon CSS -->
   <link rel="stylesheet" href="css/bootstrap-social.css">
+  <!-- Local CSS -->
   <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
+
+  <header class="navbar navbar-expand-sm">
+    <a class="navbar-brand" href="/">JSL Web</a>
+
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <%if(!req.isAuthenticated()) { %>
+          <form action="/auth/discord" method="GET">
+          <button class="btn btn-block btn-social btn-discord" type="submit">
+            <i class="fab fa-discord"></i>
+            Login with Discord
+          </button>
+          </form>
+          <!-- <a class="btn btn-block btn-social btn-discord" href="/auth/discord" role="button">
+            <i class="fab fa-discord"></i>
+            Login with Discord
+          </a> -->
+        <% } else { %>
+          <div class="nav-item">
+            <img src= <%= req.user.picture %> class="profile rounded-circle nav-item" alt="profile_pic">
+            <p class="nav-item"> <%= req.user.displayName %> </p>
+          </div>
+          <a href="/logout"><i class="fas fa-sign-out-alt fa-lg nav-item"></i></a>
+        <% } %>
+      </li>
+    </ul>
+
+  </header>
