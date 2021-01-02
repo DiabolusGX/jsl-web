@@ -1,4 +1,4 @@
-const userModel = require("./models/user");
+const userModel = require("../database/models/user");
 
 const findOrCreate = (_accessToken, _refreshToken, profile, done) => {
     let picture = "https://cdn.discordapp.com/avatars/"+profile.id+"/", email = "", steamId = "NA";

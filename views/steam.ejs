@@ -1,0 +1,48 @@
+<%- include('partials/header') %>
+
+<div class="container centered">
+  <h1 class="spacing heading">Steam Module - JSL Web</h1>
+
+  <form id="steamForm" class="spacing" action="/steam" method="post">
+      <div class="row">
+
+        <div class="col-lg-6">
+          <div class="note">
+            <h1 class="heading">Get Steam User Profile</h1>
+            <p>Want to have a glance at your steam proflie without opening steam?<br>
+              Or want to checkout friend's steam profile info?<br>
+              <em>No need to wait! </em>
+            </p>
+            <% let steamId = "NA"; if(!req.isAuthenticated()) { %>
+              <p class="vertical">Login with Discord and Link your 
+                <em>steam account</em> with Discord <br>
+                If you don't want to enter <em>steam id</em> manually every time.
+              </p>
+              <input type="text" name="steamId" placeholder="Enter Steam ID"> <br>
+            <% } else { %>
+              <p class="vertical"><em> We automatically fetched Steam ID from your Discord Account <br>
+                If you wish to see Profile of any other user, please enter the "Steam ID" of that user.
+              </em></p>
+              <input type="text" name="steamId" placeholder="Steam ID (optional)"> <br>
+            <% } %>
+            <button class="spacing btn btn-lg btn-outline-primary" name="res" value="profile" type="submit">
+              Get Steam Profile
+            </button>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <p class="spacing">Select the blacklisted flags :</p>
+          <button class="btn btn-lg btn-outline-primary" name="res" value="profile" type="submit">
+            Steam Game Search
+          </button>
+        </div>
+    </div>
+  </form>
+</div>
+
+<h1 class="spacing heading display-3">
+    <%- steamInfo %>
+</h1>
+
+<%- include('partials/footer') %>

@@ -23,19 +23,19 @@ app.use(passport.session());
 
 passport.serializeUser((user, done) => done(null, user.id));
 passport.deserializeUser((id, done) => {
-    userModel.findOne({id: id}, (err, user) => {
+    userModel.findOne({ id: id }, (err, user) => {
         done(err, user);
     });
 });
 
-const passportCallback = require("./database/passportCallback");
+const passportCallback = require("./src/passportCallback");
 passport.use(new DiscordStrategy({
     clientID: process.env.DISCORD_CLIENT_ID,
     clientSecret: process.env.DISCORD_CLIENT_SECRET,
     callbackURL: "http://localhost:3000/auth/discord/secrets",
     scope: ["identify", "email", "guilds", "connections"]
 },
-(accessToken, refreshToken, profile, done) => passportCallback(accessToken, refreshToken, profile, done)));
+    (accessToken, refreshToken, profile, done) => passportCallback(accessToken, refreshToken, profile, done)));
 
 // Home
 app.get("/", (req, res) => res.render("home.ejs", { req: req, res: res }));
@@ -57,6 +57,15 @@ app.get("/joke", (req, res) => {
 app.post("/joke", (req, res) => {
     const getJoke = require("./src/scripts/joke");
     getJoke(req, res);
+});
+
+// Steam Module
+app.get("/steam", (req, res) => {
+    res.render("steam.ejs", { req: req, res: res, steamInfo: "" });
+});
+app.post("/steam", (req, res) => {
+    const steamModule = require("./src/scripts/steam");
+    steamModule(req, res);
 });
 
 // Start Server.
