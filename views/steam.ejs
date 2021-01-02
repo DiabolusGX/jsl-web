@@ -9,40 +9,46 @@
         <div class="col-lg-6">
           <div class="note">
             <h1 class="heading">Get Steam User Profile</h1>
-            <p>Want to have a glance at your steam proflie without opening steam?<br>
-              Or want to checkout friend's steam profile info?<br>
+            <p>Want to have a glance at your steam proflie?<br>
+              Or want to checkout friend's profile info?<br>
               <em>No need to wait! </em>
             </p>
-            <% let steamId = "NA"; if(!req.isAuthenticated()) { %>
+            <%let userSteamId; if(!req.isAuthenticated()) { userSteamId  = "NA"; %>
               <p class="vertical">Login with Discord and Link your 
-                <em>steam account</em> with Discord <br>
+                <em>steam account</em><br>
                 If you don't want to enter <em>steam id</em> manually every time.
               </p>
-              <input type="text" name="steamId" placeholder="Enter Steam ID"> <br>
-            <% } else { %>
-              <p class="vertical"><em> We automatically fetched Steam ID from your Discord Account <br>
-                If you wish to see Profile of any other user, please enter the "Steam ID" of that user.
+              <input type="text" name="inputSteamId" placeholder="Enter Steam ID or URL"> <br>
+            <% } else { userSteamId = req.user.steamId; %>
+              <p class="vertical"><em> Fetched Steam info from your Discord Account <br>
+                If you wish to see Profile of any other user, please enter the "Steam ID" or "URL" of user.
               </em></p>
-              <input type="text" name="steamId" placeholder="Steam ID (optional)"> <br>
+              <input type="text" name="inputSteamId" placeholder="Steam ID or URL (optional)"> <br>
             <% } %>
-            <button class="spacing btn btn-lg btn-outline-primary" name="res" value="profile" type="submit">
+            <input type="hidden" name="action" value="profile">
+            <button class="spacing btn btn-lg btn-outline-primary" name="userSteamId" value="<%= userSteamId %>" type="submit">
               Get Steam Profile
             </button>
           </div>
         </div>
 
         <div class="col-lg-6">
-          <p class="spacing">Select the blacklisted flags :</p>
-          <button class="btn btn-lg btn-outline-primary" name="res" value="profile" type="submit">
-            Steam Game Search
-          </button>
+          <div class="note">
+            <h1 class="heading">Search Game on Steam</h1>
+            <p class="spacing">Coming soon!</p>
+            <button class="spacing btn btn-lg btn-outline-primary" name="res" value="profile" type="submit">
+              Steam Game Search
+            </button>
+          </div>
         </div>
     </div>
   </form>
 </div>
 
-<h1 class="spacing heading display-3">
+<div style="margin: 50px 20%;">
+  <div class="spacing">
     <%- steamInfo %>
-</h1>
+  </div>
+</div>
 
 <%- include('partials/footer') %>

@@ -43,7 +43,7 @@ app.get("/", (req, res) => res.render("home.ejs", { req: req, res: res }));
 // Discord OAuth2
 app.get("/auth/discord", passport.authenticate("discord"));
 app.get("/auth/discord/secrets", passport.authenticate("discord", { failureRedirect: "/" }), (req, res) => {
-    res.redirect("/joke");
+    res.redirect("/");
 });
 app.get("/logout", (req, res) => {
     req.logout();
@@ -64,7 +64,7 @@ app.get("/steam", (req, res) => {
     res.render("steam.ejs", { req: req, res: res, steamInfo: "" });
 });
 app.post("/steam", (req, res) => {
-    const steamModule = require("./src/scripts/steam");
+    const steamModule = require("./src/steam/steam");
     steamModule(req, res);
 });
 
