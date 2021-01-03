@@ -1,8 +1,8 @@
-require("dotenv");
+require("dotenv").config();
 const SteamAPI = require('steamapi');
 const steam = new SteamAPI(process.env.STEAM_API_KEY);
 
-module.exports = async (id) => {
+module.exports = async id => {
 
     const summary = await steam.getUserOwnedGames(id).catch(err => { 
         if(err){ 

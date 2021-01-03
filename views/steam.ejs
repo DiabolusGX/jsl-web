@@ -1,52 +1,62 @@
 <%- include('partials/header') %>
 
-<div class="container centered">
-  <h1 class="spacing heading">Steam Module - JSL Web</h1>
+<div class="container">
+  <h1 class="spacing heading centered">Steam Module - JSL Web</h1>
 
-  <form id="steamForm" class="spacing" action="/steam" method="post">
-      <div class="row">
+  <div class="row">
+    <div class="col-lg-6 centered">
+      <form id="steamForm" class="spacing note" action="/steam" method="post">
 
-        <div class="col-lg-6">
-          <div class="note">
-            <h1 class="heading">Get Steam User Profile</h1>
-            <p>Want to have a glance at your steam proflie?<br>
-              Or want to checkout friend's profile info?<br>
-              <em>No need to wait! </em>
-            </p>
-            <%let userSteamId; if(!req.isAuthenticated()) { userSteamId  = "NA"; %>
-              <p class="vertical">Login with Discord and Link your 
-                <em>steam account</em><br>
-                If you don't want to enter <em>steam id</em> manually every time.
-              </p>
-              <input type="text" name="inputSteamId" placeholder="Enter Steam ID or URL"> <br>
-            <% } else { userSteamId = req.user.steamId; %>
-              <p class="vertical"><em> Fetched Steam info from your Discord Account <br>
-                If you wish to see Profile of any other user, please enter the "Steam ID" or "URL" of user.
-              </em></p>
-              <input type="text" name="inputSteamId" placeholder="Steam ID or URL (optional)"> <br>
-            <% } %>
-            <input type="hidden" name="action" value="profile">
-            <button class="spacing btn btn-lg btn-outline-primary" name="userSteamId" value="<%= userSteamId %>" type="submit">
-              Get Steam Profile
-            </button>
-          </div>
-        </div>
+        <h1 class="heading">Get Steam User Profile</h1>
+        <p>Want to have a glance at your steam proflie?<br>
+          Or want to checkout friend's profile info?<br>
+          <em>No need to wait! </em>
+        </p>
+        <%let userSteamId; if(!req.isAuthenticated()) { userSteamId  = "NA"; %>
+          <p class="vertical">Login with Discord and Link your 
+            <em>steam account</em><br>
+            If you don't want to enter <em>steam id</em> manually every time.
+          </p>
+          <input type="text" name="inputSteamId" placeholder="Enter Steam ID or URL"> <br>
+        <% } else { userSteamId = req.user.steamId; %>
+          <p class="vertical"><em> Fetched Steam info from your Discord Account <br>
+            If you wish to see Profile of any other user, please enter the "Steam ID" or "URL" of user.
+          </em></p>
+          <input type="text" name="inputSteamId" placeholder="Steam ID or URL (optional)"> <br>
+        <% } %>
+        <input type="hidden" name="action" value="searchProfile">
+        <button class="spacing btn btn-lg btn-outline-primary" name="userSteamId" value="<%= userSteamId %>" type="submit">
+          Get Steam Profile
+        </button>
 
-        <div class="col-lg-6">
-          <div class="note">
-            <h1 class="heading">Search Game on Steam</h1>
-            <p class="spacing">Coming soon!</p>
-            <button class="spacing btn btn-lg btn-outline-primary" name="res" value="profile" type="submit">
-              Steam Game Search
-            </button>
-          </div>
-        </div>
+      </form>
     </div>
-  </form>
-</div>
 
-<div style="margin: 50px 20%;">
-  <div class="spacing">
+    <div class="col-lg-6 centered">
+      <form id="steamForm" class="spacing note" action="/steam" method="post">
+
+        <h1 class="heading">Search Game on Steam</h1>
+        <p>You can get the Game Details if provided game is available on steam. 
+          Like Game description, price, launch date, genres, developers etc.
+        </p>
+        <p class="vertical"><em> Enter the Game Name or Game ID <br>
+          That you wish to get information about!
+        </em></p>
+        <input type="hidden" name="action" value="gameSearch">
+        <input type="text" name="game" placeholder="Game Name or Game ID"> <br>
+        <button class="spacing btn btn-lg btn-outline-primary" type="submit">
+          Steam Game Search
+        </button>
+
+      </form>
+    </div>
+
+    <% if(!steamInfo) { %> 
+      <div class="note">
+        <p>You'll see Profile or Game search results here!</p>
+      </div>
+    <% } %>
+    
     <%- steamInfo %>
   </div>
 </div>

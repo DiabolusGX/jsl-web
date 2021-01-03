@@ -1,8 +1,8 @@
-require("dotenv");
+require("dotenv").config();
 const SteamAPI = require('steamapi');
 const steam = new SteamAPI(process.env.STEAM_API_KEY);
 
-module.exports = async (id) => {
+module.exports = async id => {
     const summary = await steam.getUserBans(id).catch(err => { 
         if(err){ 
             console.log(err);
@@ -10,15 +10,13 @@ module.exports = async (id) => {
         }
     });
 
-    let communityBanned, vacBanned, daysSinceLastBan, economyBan, vacBans, gameBans, banString = "", bans = 0;
+    let communityBanned, vacBanned, daysSinceLastBan, economyBan, gameBans, banString = "", bans = 0;
 
     if(summary.communityBanned) communityBanned = 'Yes';
     else communityBanned = 'None';
-    if(summary.vacBanned) { 
-        vacBanned = 'Yes'; 
-        vacBans = summary.vacBans;
-    }
-    else vacBanned = 'None'; vacBans = 'None';
+    if(summary.vacBanned) vacBanned = 'Yes';
+    else vacBanned = 'None';
+
     economyBan = summary.economyBan;
     gameBans = summary.gameBans;
     daysSinceLastBan = summary.daysSinceLastBan;
@@ -29,7 +27,7 @@ module.exports = async (id) => {
     }
     if(vacBanned != 'None') {
         banString += "VAC Ban - " + vacBanned + "<br>";
-        bans += vacBans; 
+        bans += summary.vacBans; 
     }
     if(gameBans != 0) {
         banString += "Game Ban - " + gameBans + "<br>"; 
