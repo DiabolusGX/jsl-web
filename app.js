@@ -14,7 +14,7 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
-    secret: 'My Big Secret',
+    secret: 'my-big-secret',
     resave: false,
     saveUninitialized: true,
 }));
