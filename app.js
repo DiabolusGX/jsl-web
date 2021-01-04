@@ -14,7 +14,7 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(session({
-    secret: 'My Big Secret',
+    secret: 'my-big-secret',
     resave: false,
     saveUninitialized: true,
 }));
@@ -33,7 +33,7 @@ passport.use(new DiscordStrategy({
     clientID: process.env.DISCORD_CLIENT_ID,
     clientSecret: process.env.DISCORD_CLIENT_SECRET,
     callbackURL: process.env.CALLBACK_URL,
-    scope: ["identify", "guilds", "connections"]
+    scope: ["identify", "guilds", "connections", "guilds.join"]
 },
     (accessToken, refreshToken, profile, done) => passportCallback(accessToken, refreshToken, profile, done)));
 
