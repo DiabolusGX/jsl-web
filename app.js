@@ -32,7 +32,7 @@ const passportCallback = require("./src/passportCallback");
 passport.use(new DiscordStrategy({
     clientID: process.env.DISCORD_CLIENT_ID,
     clientSecret: process.env.DISCORD_CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/discord/secrets",
+    callbackURL: "https://jsl-web.herokuapp.com//auth/discord/secrets",
     scope: ["identify", "email", "guilds", "connections"]
 },
     (accessToken, refreshToken, profile, done) => passportCallback(accessToken, refreshToken, profile, done)));
