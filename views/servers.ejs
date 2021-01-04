@@ -1,0 +1,70 @@
+<%- include('partials/header') %>
+
+<div class="container">
+  <h1 class="spacing heading centered">Server Picker - JSL Web</h1>
+  <p class="centered"> Work In Progress... </p>
+  <hr>
+
+  <% if(!serverInfo) { %> 
+
+    <div class="centered">
+      <div class="note">
+        <h1>Please make sure to login with discord.</h1>
+        <p>Unable to fetch server list!</p>
+      </div>
+    </div>
+
+  <% } else {  %>
+
+    <% const icon = "https://cdn.discordapp.com/icons/"; %>
+    <div class="row">
+
+      <div class="col-lg-6">
+        <div class="note">
+          <h1 class="spacing centered heading">Manage</h1>
+          <div class="row centered">
+            <% serverInfo.managableGuilds.forEach(g => { %>
+              <div class="col-lg-6 server-card rounded" >
+                <img class="rounded-circle" src=" <%- icon+`${g.id}/${g.icon}.png?size=1024` %> " alt="server_icon">
+                <p> <%- g.name %> </p>
+              </div>
+            <% }); %> 
+          </div>
+        </div>
+      </div>
+ 
+      <div class="col-lg-6">
+        <div class="note">
+          <h1 class="spacing centered heading">Common</h1>
+          <div class="row centered">
+            <% serverInfo.commonGuilds.forEach(g => { %>
+              <div class="col-lg-6 server-card rounded" >
+                <img class="rounded-circle" src=" <%- icon+`${g.id}/${g.icon}.png?size=1024` %> " alt="server_icon">
+                <p> <%- g.name %> </p>
+              </div>
+            <% }); %> 
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-12">
+        <div class="note">
+          <h1 class="spacing centered heading">Other</h1>
+          <div class="row centered">
+            <% serverInfo.otherGuilds.forEach(g => { %>
+              <div class="col-lg-3 server-card rounded" >
+                <img class="rounded-circle" src=" <%- icon+`${g.id}/${g.icon}.png?size=1024` %> " alt="server_icon">
+                <p> <%- g.name %> </p>
+              </div>
+            <% }); %> 
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  <% } %>
+
+</div>
+
+<%- include('partials/footer') %>

@@ -49,6 +49,19 @@ header a:hover {
   right: 5%;
   margin-top: 70px;
 }
+.server-card {
+  display: block;
+  padding-top: 8px;
+  padding-bottom: auto;
+}
+.server-card img {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  max-height: 50px;
+  max-width: 50px;
+  border: 3px solid #e74c3c;
+}
 
 .heading {
   color: #6175ba;

@@ -32,7 +32,7 @@ const passportCallback = require("./src/passportCallback");
 passport.use(new DiscordStrategy({
     clientID: process.env.DISCORD_CLIENT_ID,
     clientSecret: process.env.DISCORD_CLIENT_SECRET,
-    callbackURL: "https://jsl-web.herokuapp.com/auth/discord/secrets",
+    callbackURL: "http://localhost:3000/auth/discord/secrets",
     scope: ["identify", "email", "guilds", "connections"]
 },
     (accessToken, refreshToken, profile, done) => passportCallback(accessToken, refreshToken, profile, done)));
@@ -50,13 +50,13 @@ app.get("/logout", (req, res) => {
     res.redirect("/");
 });
 
-// Get and post jokes
-app.get("/joke", (req, res) => {
-    res.render("joke.ejs", { req: req, res: res, joke: "" });
-});
-app.post("/joke", (req, res) => {
-    const getJoke = require("./src/scripts/joke");
-    getJoke(req, res);
+// Servers
+app.get("/servers", async (req, res) => {
+    if(req.isAuthenticated()){
+        const servers = require("./src/scripts/servers");
+        servers(req, res);
+    }
+    else return res.render("servers.ejs", { req: req, res: res, serverInfo: "" });
 });
 
 // Steam Module
@@ -68,9 +68,19 @@ app.post("/steam", (req, res) => {
     steamModule(req, res);
 });
 
+// Get and post jokes
+app.get("/joke", (req, res) => {
+    res.render("joke.ejs", { req: req, res: res, joke: "" });
+});
+app.post("/joke", (req, res) => {
+    const getJoke = require("./src/scripts/joke");
+    getJoke(req, res);
+});
+
+
 // Start Server.
 app.listen(process.env.PORT, () => {
     console.log("Server is running on port : " + process.env.PORT);
 });
 // Connect to MongoDB.
-database.then(() => console.log(`Connected to MongoBD.`)).catch(err => console.error(err));
+database();
