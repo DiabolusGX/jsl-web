@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 
 const passport = require("passport");
 const DiscordStrategy = require('passport-discord').Strategy;
-//const database = require("./database/database");
+const database = require("./database/database");
 const userModel = require("./database/models/user");
 
 const app = express();
@@ -73,4 +73,4 @@ app.listen(process.env.PORT, () => {
     console.log("Server is running on port : " + process.env.PORT);
 });
 // Connect to MongoDB.
-//database.then(() => console.log(`Connected to MongoBD.`)).catch(err => console.error(err));
+database.then(() => console.log(`Connected to MongoBD.`)).catch(err => console.error(err));
