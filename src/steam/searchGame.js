@@ -34,7 +34,7 @@ module.exports = async (req, res, game) => {
         });
     }
     else {
-        return resRenderErr(req, res, `Work In Progress...`);
+        return resRenderErr(req, res, "Please use Game ID.<br>Search games by name is work in progress...");
     }
 }
 

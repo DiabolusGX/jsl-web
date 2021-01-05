@@ -1,3 +1,7 @@
+# Custom Large Files
+movie_ids.json
+keyword_ids.json
+
 # Logs
 logs
 *.log
