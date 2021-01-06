@@ -16,7 +16,7 @@ module.exports = async id => {
     if (typeof (profileSummary) === "string") return profileSummary;
     else if (typeof (userBans) === "string") return userBans;
 
-    const userName = `<h2 class="heading display-4"><a href="${profileSummary.url}">${profileSummary.nickname}</a>'s Profile :</h2>`;
+    const userName = `<h2 class="heading display-4"><a href="${profileSummary.url} targe="_blank"">${profileSummary.nickname}</a>'s Profile :</h2>`;
     const dateStats = `<p class="font-weight-normal">• Created at - ${timeConverter(profileSummary.created)} <br> • Last Log Off - ${timeConverter(profileSummary.lastLogOff)} </p>`;
     const banString = `<p class="font-weight-normal">• BANS - ${userBans.banString || "⁣<b>NO</b> bans on record. <br>"}</p>`;
     const profileScreenshot = `<img class="screenshot" alt="profile_sccreenshot" src="images/profile_screenshot.png">`;

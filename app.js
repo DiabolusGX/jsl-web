@@ -78,12 +78,12 @@ app.post("/joke", (req, res) => {
 });
 
 // Movie Search
+const searchMovie = require("./src/entertainment/movie");
 app.get("/movie", (req, res) => {
-    res.render("movie.ejs", { req: req, res: res, matchingMovies: "", movieInfo: "" });
+    searchMovie(req, res, req.query);
 });
 app.post("/movie", (req, res) => {
-    const searchMovie = require("./src/entertainment/movie");
-    searchMovie(req, res);
+    searchMovie(req, res, req.query);
 });
 
 

@@ -44,12 +44,12 @@ header a:hover { color: inherit; transform: scale(1.25); }
   right: 5%;
   margin-top: 70px;
 }
-.server-card {
+.info-card {
   display: block;
   padding-top: 8px;
   padding-bottom: auto;
 }
-.server-card img {
+.info-card img {
   margin-left: auto;
   margin-right: auto;
   display: block;

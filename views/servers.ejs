@@ -24,7 +24,7 @@
           <h1 class="spacing centered heading">Manage</h1>
           <div class="row centered">
             <% serverInfo.managableGuilds.forEach(g => { %>
-              <div class="col-lg-6 server-card rounded" >
+              <div class="col-lg-6 info-card rounded" >
                 <img class="rounded-circle" src=" <%- icon+`${g.id}/${g.icon}.png?size=1024` %> " alt="server_icon">
                 <p> <%- g.name %> </p>
               </div>
@@ -40,7 +40,7 @@
             <% const inviteUrl = "https://discord.com/oauth2/authorize?&client_id=699505785847283785&scope=bot&permissions=1026911319&guild_id="; %>
             <% const endUrl = "&response_type=code&redirect_uri=https://jsl-web.herokuapp.com/auth/discord/secrets"; %>
             <% serverInfo.invitableGuilds.forEach(g => { %>
-              <div class="col-lg-6 server-card rounded" >
+              <div class="col-lg-6 info-card rounded" >
                 <img class="rounded-circle" src=" <%- icon+`${g.id}/${g.icon}.png?size=1024` %> " alt="server_icon">
                 <p> <%- g.name %> </p>
                 <a class="btn btn-outline-success" href="<%- inviteUrl+g.id+endUrl %>"> <i class="fa fa-plus" aria-hidden="true"></i> Add Bot </a>
@@ -56,7 +56,7 @@
           <h1 class="spacing centered heading">Other Common Servers</h1>
           <div class="row centered">
             <% serverInfo.commonGuilds.forEach(g => { %>
-              <div class="col-lg-3 server-card rounded" >
+              <div class="col-lg-3 info-card rounded" >
                 <img class="rounded-circle" src=" <%- icon+`${g.id}/${g.icon}.png?size=1024` %> " alt="server_icon">
                 <p> <%- g.name %> </p>
               </div>
