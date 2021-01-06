@@ -1,7 +1,19 @@
 <%- include('partials/header') %>
 
 <div class="container">
-  <h1 class="spacing heading centered">Steam Module - JSL Web</h1>
+  <div class="centered">
+    <h1 class="heading display-4">Steam Module - JSL Web</h1>
+    <% const inviteLink = "https://discord.com/oauth2/authorize?&client_id=699505785847283785&scope=bot&permissions=1026911319&response_type=code&redirect_uri=https://jsl-web.herokuapp.com/auth/discord/secrets"; %> 
+    <a class="spacing btn btn-outline-primary" href="<%- inviteLink %> ">Get JSL Bot to get access to full Steam Module</a><br>
+  </div>
+  <ul class="center-ul">
+    <li>Recent Played Games</li>
+    <li>Common Games b/w 2 users</li>
+    <li>Owned Games</li>
+    <li>Steam Groups</li>
+    <li>List of friends who owns provided game</li>
+  </ul>
+  <hr>
 
   <div class="row">
     <div class="col-lg-6 centered">

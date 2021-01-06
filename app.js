@@ -73,8 +73,17 @@ app.get("/joke", (req, res) => {
     res.render("joke.ejs", { req: req, res: res, joke: "" });
 });
 app.post("/joke", (req, res) => {
-    const getJoke = require("./src/scripts/joke");
+    const getJoke = require("./src/entertainment/joke");
     getJoke(req, res);
+});
+
+// Movie Search
+const searchMovie = require("./src/entertainment/movie");
+app.get("/movie", (req, res) => {
+    searchMovie(req, res, req.query);
+});
+app.post("/movie", (req, res) => {
+    searchMovie(req, res, req.query);
 });
 
 

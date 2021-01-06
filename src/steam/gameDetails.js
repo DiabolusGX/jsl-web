@@ -24,7 +24,7 @@ module.exports = async summary => {
         gameGenres += summary.genres[i].description + ' | ';
     }
     if(summary.platforms.windows) gamePlatforms += `Windows | `;
-    if(summary.platforms.mac) gamePlatforms += `Mac |`;
+    if(summary.platforms.mac) gamePlatforms += `Mac | `;
     if(summary.platforms.linux) gamePlatforms += `Linux`;
 
     let devString = `Devs - ${summary.developers} <br> Publishers - ${summary.publishers} <br>`;

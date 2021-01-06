@@ -1,0 +1,47 @@
+<%- include('partials/header') %>
+
+<div class="container">
+  <h1 class="heading centered display-4">Movies - JSL Web</h1>
+  <% const inviteLink = "https://discord.com/oauth2/authorize?&client_id=699505785847283785&scope=bot&permissions=1026911319&response_type=code&redirect_uri=https://jsl-web.herokuapp.com/auth/discord/secrets"; %> 
+  <hr>
+
+  <div class="row">
+
+    <div class="col-lg-6 centered">
+      <form id="movieForm" class="note" action="/movie" method="post">
+
+        <h1 class="heading">Search Movie</h1>
+        <p>Looking for movies to watch?<br>
+          Or want to get info about any perticulat movie?<br>
+          <em>No need to wait! </em>
+        </p>
+        
+        <input type="text" name="movieName" placeholder="Movie Name (required)"> <br>
+        <input type="hidden" name="action" value="searchMovie">
+        <button class="spacing btn btn-lg btn-outline-primary" type="submit">
+          Get Movie
+        </button>
+
+      </form>
+    </div>
+
+    <div class="col-lg-6 centered">
+      <div class="note">
+        <h1 class="heading">Get JSL Bot</h1>
+        <p>To get these features in your discord server <br>
+          and many more similar utility commands! <b>Invite JSL Bot</b> <br>
+          <br> - Get Movie Trailer <br> - TV Show Search
+        </p>
+        <a class="btn btn-lg btn-outline-success" href="<%- inviteLink %> "> <i class="fa fa-plus"></i> | Invite JSL Bot</a>
+        <hr>
+      </div>
+    </div>
+  </div>
+
+  <% if(movieInfo) { %> 
+    <%- movieInfo %> 
+  <% } %>
+
+</div>
+
+<%- include('partials/footer') %>
