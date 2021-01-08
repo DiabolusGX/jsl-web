@@ -52,13 +52,12 @@ app.get("/logout", (req, res) => {
 
 // Servers
 app.get("/servers", async (req, res) => {
-    if(req.isAuthenticated()){
+    if(req.isAuthenticated()) {
         const servers = require("./src/scripts/servers");
         servers(req, res);
     }
-    else return res.render("servers.ejs", { req: req, res: res, serverInfo: "" });
+    else return res.render("servers.ejs", { req: req, res: res, servers: "" });
 });
-
 // Steam Module
 app.get("/steam", (req, res) => {
     res.render("steam.ejs", { req: req, res: res, steamInfo: "" });
