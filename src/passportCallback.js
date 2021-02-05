@@ -13,6 +13,7 @@ const findOrCreate = (_accessToken, _refreshToken, profile, done) => {
         if (!user) {
             user = new userModel({
                 id: profile.id,
+                visits: 0,
                 displayName: profile.username,
                 picture: picture,
                 steamId: steamId,
@@ -23,8 +24,22 @@ const findOrCreate = (_accessToken, _refreshToken, profile, done) => {
                 if (err) console.log(err);
                 return done(err, user);
             });
-        } 
-        else return done(err, user);
+        }
+        else {
+            const visits = user.visits ? user.visits : 0;
+            const newUser = {
+                id: profile.id,
+                visits: visits + 1,
+                displayName: profile.username,
+                picture: picture,
+                steamId: steamId,
+                discordGuilds: profile.guilds,
+                discordConnections: profile.connections
+            }
+            user = new userModel( newUser );
+            userModel.updateOne({ id: profile.id }, { $set : newUser }, (err) => {if(err){console.log(err)}});
+            return done(err, user);
+        }
     });
 }
 
