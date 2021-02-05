@@ -5,7 +5,7 @@
   <p class="centered"> Work In Progress... </p>
   <hr>
 
-  <% if(!serverInfo) { %> 
+  <% if(!servers) { %> 
 
     <div class="centered">
       <div class="note">
@@ -15,58 +15,7 @@
     </div>
 
   <% } else {  %>
-
-    <% const icon = "https://cdn.discordapp.com/icons/"; %>
-    <div class="row">
-
-      <div class="col-lg-6">
-        <div class="note">
-          <h1 class="spacing centered heading">Manage</h1>
-          <div class="row centered">
-            <% serverInfo.managableGuilds.forEach(g => { %>
-              <div class="col-lg-6 info-card rounded" >
-                <img class="rounded-circle" src=" <%- icon+`${g.id}/${g.icon}.png?size=1024` %> " alt="server_icon">
-                <p> <%- g.name %> </p>
-              </div>
-            <% }); %> 
-          </div>
-        </div>
-      </div>
- 
-      <div class="col-lg-6">
-        <div class="note">
-          <h1 class="spacing centered heading">Invite to</h1>
-          <div class="row centered">
-            <% const inviteUrl = "https://discord.com/oauth2/authorize?&client_id=699505785847283785&scope=bot&permissions=1026911319&guild_id="; %>
-            <% const endUrl = "&response_type=code&redirect_uri=https://jsl-web.herokuapp.com/auth/discord/secrets"; %>
-            <% serverInfo.invitableGuilds.forEach(g => { %>
-              <div class="col-lg-6 info-card rounded" >
-                <img class="rounded-circle" src=" <%- icon+`${g.id}/${g.icon}.png?size=1024` %> " alt="server_icon">
-                <p> <%- g.name %> </p>
-                <a class="btn btn-outline-success" href="<%- inviteUrl+g.id+endUrl %>"> <i class="fa fa-plus" aria-hidden="true"></i> Add Bot </a>
-                <p></p>
-              </div>
-            <% }); %> 
-          </div>
-        </div>
-      </div>
-
-      <div class="col-lg-12">
-        <div class="note">
-          <h1 class="spacing centered heading">Other Common Servers</h1>
-          <div class="row centered">
-            <% serverInfo.commonGuilds.forEach(g => { %>
-              <div class="col-lg-3 info-card rounded" >
-                <img class="rounded-circle" src=" <%- icon+`${g.id}/${g.icon}.png?size=1024` %> " alt="server_icon">
-                <p> <%- g.name %> </p>
-              </div>
-            <% }); %> 
-          </div>
-        </div>
-      </div>
-
-    </div>
-
+    <%- servers %>
   <% } %>
 
 </div>

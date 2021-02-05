@@ -13,6 +13,9 @@ body {
   font-family: 'Open Sans', sans-serif;
   font-weight: 300;
 }
+a {
+  color: inherit;
+}
 
 header {
   background-color: #cd5d7d;
