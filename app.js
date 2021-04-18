@@ -59,11 +59,11 @@ app.get("/servers", async (req, res) => {
     else return res.render("servers.ejs", { req: req, res: res, servers: "" });
 });
 // Steam Module
+const steamModule = require("./src/steam/steam");
 app.get("/steam", (req, res) => {
-    res.render("steam.ejs", { req: req, res: res, steamInfo: "" });
+    steamModule(req, res);
 });
 app.post("/steam", (req, res) => {
-    const steamModule = require("./src/steam/steam");
     steamModule(req, res);
 });
 

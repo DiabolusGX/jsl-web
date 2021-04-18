@@ -36,12 +36,11 @@ module.exports = steamModule = async (req, res) => {
                 return resRenderErr(req, res, `Please enter a valid Steam ID or URL`);
             }
         });
-        
     }
-    else if(action === "gameSearch") {
-
-        if(!req.body.game) return resRenderErr(req, res, `Please enter a valid Game Name or Game ID`);
-        searchGame(req, res, req.body.game);
+    else if(action === "gameSearch" || req.query.id) {
+        if(!req.body.game && !req.query.id) return resRenderErr(req, res, `Please enter a valid Game Name or Game ID`);
+        const search = req.query.id ? req.query.id : req.body.game;
+        searchGame(req, res, search);
     }
 }
 
